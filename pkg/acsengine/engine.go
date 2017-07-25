@@ -75,6 +75,8 @@ const (
 	swarmWinAgentResourcesVMAS   = "swarmwinagentresourcesvmas.t"
 	swarmWinAgentResourcesVMSS   = "swarmwinagentresourcesvmss.t"
 	windowsParams                = "windowsparams.t"
+	openshiftBaseFile            = "openshiftbase.t"
+	openshiftParams              = "openshiftparams.t"
 )
 
 const (
@@ -128,6 +130,7 @@ var dcosTemplateFiles = []string{dcosAgentResourcesVMAS, dcosAgentResourcesVMSS,
 var kubernetesTemplateFiles = []string{kubernetesBaseFile, kubernetesAgentResourcesVMAS, kubernetesAgentVars, kubernetesMasterResources, kubernetesMasterVars, kubernetesParams, kubernetesWinAgentVars}
 var swarmTemplateFiles = []string{swarmBaseFile, swarmAgentResourcesVMAS, swarmAgentVars, swarmAgentResourcesVMSS, swarmAgentResourcesClassic, swarmBaseFile, swarmMasterResources, swarmMasterVars, swarmWinAgentResourcesVMAS, swarmWinAgentResourcesVMSS}
 var swarmModeTemplateFiles = []string{swarmBaseFile, swarmAgentResourcesVMAS, swarmAgentVars, swarmAgentResourcesVMSS, swarmAgentResourcesClassic, swarmBaseFile, swarmMasterResources, swarmMasterVars, swarmWinAgentResourcesVMAS, swarmWinAgentResourcesVMSS}
+var openshiftTemplateFiles = []string{openshiftBaseFile, openshiftParams}
 
 /**
  The following parameters could be either a plain text, or referenced to a secret in a keyvault:
@@ -315,6 +318,9 @@ func prepareTemplateFiles(properties *api.Properties) ([]string, string, error) 
 	} else if properties.OrchestratorProfile.OrchestratorType == api.SwarmMode {
 		files = append(commonTemplateFiles, swarmModeTemplateFiles...)
 		baseFile = swarmBaseFile
+	} else if properties.OrchestratorProfile.OrchestratorType == api.OpenShift {
+		files = append(commonTemplateFiles, openshiftTemplateFiles...)
+		baseFile = openshiftBaseFile
 	} else {
 		return nil, "", fmt.Errorf("orchestrator '%s' is unsupported", properties.OrchestratorProfile.OrchestratorType)
 	}

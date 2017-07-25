@@ -154,6 +154,8 @@ func (o *OrchestratorProfile) UnmarshalJSON(b []byte) error {
 		o.OrchestratorType = Kubernetes
 	case strings.EqualFold(orchestratorType, string(SwarmMode)):
 		o.OrchestratorType = SwarmMode
+	case strings.EqualFold(orchestratorType, string(OpenShift)):
+		o.OrchestratorType = OpenShift
 	default:
 		return fmt.Errorf("OrchestratorType has unknown orchestrator: %s", orchestratorType)
 	}

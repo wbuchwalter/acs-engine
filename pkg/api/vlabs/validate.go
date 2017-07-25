@@ -32,7 +32,7 @@ func (o *OrchestratorProfile) Validate() error {
 
 	case Swarm:
 	case SwarmMode:
-
+	case OpenShift:
 	case Kubernetes:
 		switch o.OrchestratorVersion {
 		case Kubernetes171:
